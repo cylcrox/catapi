@@ -1,8 +1,9 @@
 from utils.http_utils import HttpUtils
 class CatsController:
 
-  def __init__(self):
+  def __init__(self, repo):
     self.utils = HttpUtils()
+    self.repo = repo
 
   def create_cat(self, request):
     request_body = self.utils.read_request_body(request)

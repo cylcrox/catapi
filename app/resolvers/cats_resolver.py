@@ -1,8 +1,8 @@
 from controllers.cats_controller import CatsController
 class CatsResolver:
 
-  def __init__(self):
-    self.controller = CatsController()
+  def __init__(self, repo):
+    self.controller = CatsController(repo)
 
   def resolve_post(self, request):
     self.controller.create_cat(request)
