@@ -11,4 +11,4 @@ class Cats(Base):
     id: Mapped[str] = mapped_column(primary_key=True)
     url: Mapped[str]
     favorite: Mapped[bool]
-    breed_id = Column(String, ForeignKey(Breeds.id))
+    breed_id = Column(String, ForeignKey("breeds.id"))

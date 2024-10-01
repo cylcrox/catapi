@@ -23,7 +23,7 @@ def upgrade():
         'cats',
         sa.Column('id', sa.String(), primary_key=True),
         sa.Column('url', sa.String(), nullable=False),
-        sa.Column('favorite', sa.Boolean(), default=False),
+        sa.Column('favorite', sa.Boolean(), nullable=False),
         sa.Column('breed_id', sa.String()),
     )
 

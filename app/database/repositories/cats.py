@@ -28,11 +28,11 @@ class Cats:
     return self.run(update_query)
 
   def add_to_favorites(self, id):
-    update_query = update(CatsSchema).where(CatsSchema.id == id).values(favorites == True)
+    update_query = update(CatsSchema).where(CatsSchema.id == id).values(favorite = True)
     return self.run(update_query)
 
   def remove_from_favorites(self, id):
-    update_query = update(CatsSchema).where(CatsSchema.id == id).values(favorites == False)
+    update_query = update(CatsSchema).where(CatsSchema.id == id).values(favorite = False)
     return self.run(update_query)
 
   def run(self, query):

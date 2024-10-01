@@ -7,7 +7,7 @@ from repositories.cats import Cats as CatsRepo
 import json 
 import requests
 
-cats_api_url = "https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=2"
+cats_api_url = "https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=100"
 THE_CATS_API_API_KEY = "live_pXQAunhwGmwavQIauLfT5iSaMIWig6YCBD6n68cerxZ8mUU9J0IqC3lq7CLAJLny"
 
 class Populate:
