@@ -14,6 +14,7 @@ class HttpUtils:
   def successful_response(self, request, body, message = "Success!"):
     request.send_response(200, message)
     request.send_header('Content-Type', 'application/json')
+    request.send_header('Access-Control-Allow-Origin', 'http://localhost:3000')
     request.end_headers()
     request.wfile.write(json.dumps(body).encode())
   

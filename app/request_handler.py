@@ -19,3 +19,10 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_DELETE(self): 
       self.router.delete(self)
+      
+    def do_OPTIONS(self):
+      self.send_response(200)
+      self.send_header('Access-Control-Allow-Origin', 'http://localhost:3000')
+      self.send_header('Access-Control-Allow-Methods', 'GET, DELETE, OPTIONS')
+      self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+      self.end_headers()
