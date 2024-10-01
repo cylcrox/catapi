@@ -8,6 +8,8 @@ python3 -m pip install load_dotenv
 python3 -m pip install psycopg2-binary
 python3 -m pip install alembic
 python3 -m pip install sqlalchemy
+python3 -m pip install requests
 install docker
 source .env; set +o allexport
 docker run -e POSTGRES_DB=cats -e POSTGRES_USER=sample -e POSTGRES_PASSWORD=sample -e PGDATA=/var/lib/postgres -d -p 5432:5432 -h 127:0.0.1:0.0.0.0 postgres
+alembic upgrade head

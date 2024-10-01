@@ -1,11 +1,11 @@
 import http.server
 from router import Router
-from database.repo.repo import Repo
+from database.setup.db import DBSetup
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
     
-    repo = Repo()
-    db_session = repo.initialize()
+    db_setup = DBSetup()
+    db_session = db_setup.initialize()
     router = Router(db_session)
 
     def do_POST(self): 

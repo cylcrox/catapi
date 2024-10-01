@@ -5,7 +5,7 @@ class CatsResolver:
     self.controller = CatsController(db_session)
 
   def resolve_post(self, request):
-    self.controller.create_cat(request)
+    self.controller.add_to_favorites(request)
 
   def resolve_get(self, request):
     self.controller.list_cats(request)
@@ -14,4 +14,4 @@ class CatsResolver:
     self.controller.update_cat_by_id(request)
 
   def resolve_delete(self, request):
-    self.controller.delete_cat_by_id(request)
+    self.controller.remove_from_favorites(request)

@@ -1,0 +1,30 @@
+from setup.db import DBSetup
+from schema.cats import Cats as CatsSchema
+from schema.breeds import Breeds as BreedsSchema
+from repositories.breeds import Breeds as BreedsRepo
+from repositories.cats import Cats as CatsRepo
+
+import json 
+import requests
+
+cats_api_url = "https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=2"
+THE_CATS_API_API_KEY = "live_pXQAunhwGmwavQIauLfT5iSaMIWig6YCBD6n68cerxZ8mUU9J0IqC3lq7CLAJLny"
+
+class Populate:
+  def __init__(self):  
+    db_session = DBSetup().initialize()
+    self.breeds_repo = BreedsRepo(db_session)
+    self.cats_repo = CatsRepo(db_session)
+  
+  def populate(self):
+    response = requests.get(cats_api_url, headers= { "x-api-key": THE_CATS_API_API_KEY })
+    cats = json.loads(response.text)
+    for cat in cats:
+      self.breeds_repo.create_if_not_exists(cat.get("breeds")[0])
+      self.cats_repo.create(cat)
+
+def start():
+  Populate().populate()
+
+if __name__ == '__main__':
+    start()

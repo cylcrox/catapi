@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 
-class Repo:
+class DBSetup:
   def initialize(self):
     # TODO: FIX READING DB VARS
     # database = os.getenv('POSTGRES_DB')
@@ -13,21 +13,21 @@ class Repo:
     # password = os.getenv('POSTGRES_PASSWORD')
     # host = os.getenv('POSTGRES_HOST')
 
-    url = URL.create(
-      "postgresql+psycopg2",
-      username="sample",
-      password="sample",  # plain (unescaped) text
-      host="localhost",
-      database="cats",
+    engine = create_engine(
+      URL.create(
+        "postgresql+psycopg2",
+        username="sample",
+        password="sample",
+        host="localhost",
+        database="cats",
+      )
     )
 
-    print("Opening connection to the DB")
-    engine = create_engine(url)
-
     try:
+      print("Opening connection to the DB...")
       engine.connect()
-      print("Connected to database...")
-      Session = sessionmaker(bind=engine)
-      return Session()
+      print("Connected!")
+      return sessionmaker(bind=engine)()
     except SQLAlchemyError as err:
       print("Can't connect to to the DB", err.__cause__)
+
