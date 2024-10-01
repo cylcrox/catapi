@@ -6,7 +6,9 @@ class HttpUtils:
     return path.split('/')[1]
 
   def matches(self, path, route):
-    return self.base_path(path) == route 
+    base_path = self.base_path(path.split("?")[0])
+    print(base_path)
+    return base_path == route
 
   def read_request_body(self, request):
     return json.loads(request.rfile.read(int(request.headers['Content-Length'])))

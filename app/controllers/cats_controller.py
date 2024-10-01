@@ -10,8 +10,8 @@ class CatsController:
   def add_to_favorites(self, request, id):
     self.utils.successful_response(request, self.repo.add_to_favorites(id), "Added to favorites!")
 
-  def list_cats(self, request):
-    cats_list = self.repo.list()
+  def list_cats(self, request, breed_id = None):
+    cats_list = self.repo.list(breed_id)
     response = []
   
     self.utils.successful_response(request, 

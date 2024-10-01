@@ -1,5 +1,7 @@
 from controllers.cats_controller import CatsController
 from utils.http_utils import HttpUtils
+from urllib.parse import urlparse, parse_qs
+
 class CatsResolver:
 
   def __init__(self, db_session):
@@ -12,8 +14,9 @@ class CatsResolver:
 
   def resolve_get(self, request):
     id = self.get_id_from_path(request.path)
+    breed_id = self.get_query_param_from_path(request.path, "breed_id")
     if id == None:
-      self.controller.list_cats(request)
+      self.controller.list_cats(request, breed_id)
     else:
       self.controller.get_cat_by_id(request, id)
 
@@ -29,3 +32,10 @@ class CatsResolver:
   def get_id_from_path(self, path):
     path_portions = path.split("cats/")
     return path_portions[1] if len(path_portions)>1 else None
+  
+  def get_query_param_from_path(sef, path, param_key):
+    query_string = parse_qs(urlparse(path).query)
+    if param_key in query_string:
+      return query_string[param_key][0]
+    else:
+      return None

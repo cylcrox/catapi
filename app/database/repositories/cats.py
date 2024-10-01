@@ -22,8 +22,11 @@ class Cats:
     else:
       print("-->>Existing cat: "+ existing_cat.id)
 
-  def list(self, page=0, pageSize=10):
-    return self.db_session.query(CatsSchema).order_by(CatsSchema.id.desc()).all()
+  def list(self, breed_id = None):
+    query = self.db_session.query(CatsSchema)
+    if breed_id != None:
+      query = query.filter(CatsSchema.breed_id == breed_id).order_by(CatsSchema.id.desc())
+    return query.order_by(CatsSchema.id.desc()).all()
 
   def get_by_id(self, id):
     return self.db_session.query(CatsSchema).get(id)
