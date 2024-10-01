@@ -32,10 +32,7 @@ export function CatCard(props: CatsCardProps) {
         image={props.imageUrl}
         alt={props.altText}
       />
-      <CardContent>
-        <Typography variant="body2">Breed: {props.breed}</Typography>
-      </CardContent>
-      <CardActions disableSpacing>
+      <CardContent sx={{ display: "flex", alignItems: "center" }}>
         <IconButton
           id={`toggleFavorite-${props.id}`}
           onClick={toggleFavorite}
@@ -43,7 +40,8 @@ export function CatCard(props: CatsCardProps) {
         >
           <FavoriteIcon color={props.favorite ? "primary" : "disabled"} />
         </IconButton>
-      </CardActions>
+        <Typography variant="body2">Breed: {props.breed}</Typography>
+      </CardContent>
     </Card>
   );
 }

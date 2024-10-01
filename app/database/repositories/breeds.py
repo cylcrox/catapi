@@ -14,3 +14,6 @@ class Breeds:
       print("--**Created breed: "+ breed.get("name"))
     else:
       print("-->>Existing breed: "+ existing_breed.name)
+
+  def list(self):
+    return self.db_session.query(BreedsSchema).all()

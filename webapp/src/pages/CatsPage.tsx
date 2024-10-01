@@ -1,24 +1,44 @@
 import { Box } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { Cat } from "../api/types";
+import { listBreeds } from "../api/breeds";
 import { addFavorite, listCats, removeFavorite } from "../api/cats";
+import { Cat } from "../api/types";
 import { CatCard } from "../components/cats/CatCard";
-import { useSnackbar } from "../components/generic/hooks/useSnackbar";
 import { errorMessage, successMessage } from "../components/generic/constants";
+import { useSnackbar } from "../components/generic/hooks/useSnackbar";
 
 export function CatsPage() {
-  const [catsData, setCatsData] = useState<Array<Cat> | undefined>();
+  const [breeds, setBreeds] = useState<Map<string, string> | undefined>();
+  const [catsData, setCatsData] = useState<Array<Cat>>();
   const { setSnack } = useSnackbar();
 
+  async function fetchCatsData() {
+    try {
+      const { data } = await listCats();
+      setCatsData(data);
+    } catch (error) {
+      setSnack(errorMessage("Couldn't fetch cats data."));
+    }
+  }
+
+  async function fetchBreedsData() {
+    try {
+      const { data } = await listBreeds();
+      const map: Map<string, string> = new Map();
+      data.forEach(({ id, name }) => {
+        map.set(id, name);
+      });
+      setBreeds(map);
+    } catch (error) {
+      setSnack(errorMessage("Couldn't fetch breeds data."));
+    }
+  }
+
   useEffect(() => {
-    !catsData &&
-      (async () => {
-        try {
-          const { data } = await listCats();
-          setCatsData(data);
-        } catch (error) {}
-      })();
-  }, [catsData]);
+    !catsData && fetchCatsData();
+    !breeds && fetchBreedsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [catsData, breeds]);
 
   function setFavorite(id: string, favorite: boolean) {
     setCatsData((catsData) =>
@@ -32,7 +52,7 @@ export function CatsPage() {
       if (cat) {
         if (!cat.favorite) {
           try {
-            await removeFavorite(id);
+            await addFavorite(id);
             setFavorite(id, true);
             setSnack(successMessage("Added to favorites!"));
           } catch {
@@ -40,7 +60,7 @@ export function CatsPage() {
           }
         } else {
           try {
-            await addFavorite(id);
+            await removeFavorite(id);
             setFavorite(id, false);
             setSnack(successMessage("Removed from favorites!"));
           } catch {
@@ -68,7 +88,7 @@ export function CatsPage() {
         {catsData?.map((cat) => (
           <CatCard
             id={cat.id}
-            breed={cat.breed_id}
+            breed={breeds?.get(cat.breed_id) ?? cat.breed_id}
             altText={cat.id}
             favorite={cat.favorite}
             imageUrl={cat.url}

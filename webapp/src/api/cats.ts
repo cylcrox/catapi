@@ -12,7 +12,7 @@ export function listCats() {
 }
 
 export function addFavorite(id: string) {
-  return axiosInstance.post(BASE_PATH, { data: { id } });
+  return axiosInstance.post(BASE_PATH, { id });
 }
 
 export function removeFavorite(id: string) {
@@ -22,8 +22,5 @@ export function removeFavorite(id: string) {
 export function updateCat(id: string, cat: Cat) {
   return axiosInstance.put(`${BASE_PATH}/${id}`, {
     data: cat,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
   });
 }
