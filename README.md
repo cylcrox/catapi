@@ -4,7 +4,7 @@ Catz app 😜
 Prior to the setup, make sure you have the following installed:
 - Python 3.12.6: `brew install python@3.12.6`
 - Docker, [download link](https://docs.docker.com/desktop/install/mac-install/).
-- Node, TODO: REVIEW NODE VERSION
+- Node 22: `brew install node@22`
 
 ## Setup
 

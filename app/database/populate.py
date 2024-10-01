@@ -8,7 +8,7 @@ import json
 import requests
 
 cats_api_url = "https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=100"
-THE_CATS_API_API_KEY = "live_pXQAunhwGmwavQIauLfT5iSaMIWig6YCBD6n68cerxZ8mUU9J0IqC3lq7CLAJLny"
+THE_CATS_API_API_KEY = "live_TYBossv3crQ7lngHP4ONVUFUCAN2JlCkuigQ7Vqx8oiBUQ3zK95ym5ynEf3I8m07"
 
 class Populate:
   def __init__(self):  
