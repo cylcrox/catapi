@@ -5,10 +5,27 @@ class Cats:
   def __init__(self, db_session):
     self.db_session = db_session
 
-  def create(self, cat):
-      new_cat = CatsSchema(id= cat.get("id"), url= cat.get("url"), breed_id= cat.get("breeds")[0].get("id"))
+  def create_if_not_exists(self, cat):
+    
+    existing_cat = self.db_session.query(CatsSchema).get(cat.get("id"))
+    
+    if existing_cat == None:
+      new_cat = CatsSchema(
+      id= cat.get("id"), 
+      url= cat.get("url"), 
+      breed_id= cat.get("breeds")[0].get("id"),
+      favorite= False
+    )
       self.db_session.add(new_cat)   
       self.db_session.commit()
+      print("--**Created cat: "+ cat.get("id"))
+    else:
+      print("-->>Existing cat: "+ existing_cat.id)
+
+    
+    
+    
+    
 
   def list(self, page=0, pageSize=10):
     return self.db_session.query(CatsSchema).all()

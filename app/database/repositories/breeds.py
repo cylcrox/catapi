@@ -6,8 +6,11 @@ class Breeds:
 
   def create_if_not_exists(self, breed):
     existing_breed = self.db_session.query(BreedsSchema).get(breed.get("id"))
-
+    
     if existing_breed == None:
       new_breed = BreedsSchema(id=breed.get("id"), name=breed.get("name"))
       self.db_session.add(new_breed)   
       self.db_session.commit()
+      print("--**Created breed: "+ breed.get("name"))
+    else:
+      print("-->>Existing breed: "+ existing_breed.name)

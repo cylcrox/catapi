@@ -13,16 +13,21 @@ THE_CATS_API_API_KEY = "live_pXQAunhwGmwavQIauLfT5iSaMIWig6YCBD6n68cerxZ8mUU9J0I
 class Populate:
   def __init__(self):  
     db_session = DBSetup().initialize()
+    self.db_session = db_session
     self.breeds_repo = BreedsRepo(db_session)
     self.cats_repo = CatsRepo(db_session)
   
   def populate(self):
     response = requests.get(cats_api_url, headers= { "x-api-key": THE_CATS_API_API_KEY })
-    cats = json.loads(response.text)
-    for cat in cats:
-      self.breeds_repo.create_if_not_exists(cat.get("breeds")[0])
-      self.cats_repo.create(cat)
-
+    for cat in json.loads(response.text):
+      with self.db_session.begin():
+        breed = cat.get("breeds")[0]
+        self.breeds_repo.create_if_not_exists(breed)
+      self.db_session.commit()
+      with self.db_session.begin():
+        self.cats_repo.create_if_not_exists(cat)
+      self.db_session.commit()
+      
 def start():
   Populate().populate()
 
