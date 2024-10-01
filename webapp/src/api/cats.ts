@@ -7,8 +7,10 @@ export function getCat(id: string) {
   return axiosInstance.get<Cat>(`${BASE_PATH}/${id}`);
 }
 
-export function listCats() {
-  return axiosInstance.get<Array<Cat>>(BASE_PATH);
+export function listCats(breed_id: string | undefined) {
+  return axiosInstance.get<Array<Cat>>(
+    !breed_id ? BASE_PATH : `${BASE_PATH}?breed_id=${breed_id}`
+  );
 }
 
 export function addFavorite(id: string) {
