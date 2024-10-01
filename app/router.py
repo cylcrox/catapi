@@ -3,9 +3,9 @@ from utils.http_utils import HttpUtils
 
 class Router:
 
-  def __init__(self, repo):
+  def __init__(self, db_session):
     self.utils = HttpUtils()
-    self.cats_resolver = CatsResolver(repo)
+    self.cats_resolver = CatsResolver(db_session)
 
   def get(self, request):
     if self.utils.matches(request.path, 'cats'):
