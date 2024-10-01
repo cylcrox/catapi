@@ -26,7 +26,12 @@ Please follow the next steps in order.
   (catapi) $ python3 -m pip install requests
 ```
 
-#### 3. Export the necessary environment variables by executing the following one-liner:
+#### 3. Define and export the necessary environment variables:
+
+Use the `.env.example` template to create an `.env` file defining your secrets.
+
+Then, run the following command to export your variables:
+
 ```
   (catapi) $ source .env; set +o allexport
 ```
@@ -41,7 +46,7 @@ Please follow the next steps in order.
   (catapi) $ python3 -m app.database.populate
 ```
 
-If it fails the first time, try again.
+*Note: It might fail the first time, it seems that depending on the network the request hangs up.*
 
 
 ## Start the server
@@ -60,7 +65,7 @@ Go to `webapp/` and start the web server by running the following:
   $ npm start
 ```
 
-After runnig the previous command, you'll be taken to the browser and you should see something like this:
+After running the previous command, you'll be taken to the browser and you should see something like this:
 
 https://github.com/user-attachments/assets/f4f16dcd-4064-4e36-974b-1eb06a969a11
 
