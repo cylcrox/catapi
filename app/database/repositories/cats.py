@@ -11,21 +11,16 @@ class Cats:
     
     if existing_cat == None:
       new_cat = CatsSchema(
-      id= cat.get("id"), 
-      url= cat.get("url"), 
-      breed_id= cat.get("breeds")[0].get("id"),
-      favorite= False
-    )
+        id= cat.get("id"), 
+        url= cat.get("url"), 
+        breed_id= cat.get("breeds")[0].get("id"),
+        favorite= False
+      )
       self.db_session.add(new_cat)   
       self.db_session.commit()
       print("--**Created cat: "+ cat.get("id"))
     else:
       print("-->>Existing cat: "+ existing_cat.id)
-
-    
-    
-    
-    
 
   def list(self, page=0, pageSize=10):
     return self.db_session.query(CatsSchema).all()
@@ -35,7 +30,7 @@ class Cats:
 
   def update_by_id(self, id, cat):
     existing_cat = self.db_session.query(CatsSchema).get(id)
-
+    
     url = cat.get("url") if cat.get("url") != None and len(cat.get("url"))>0 else existing_cat.url
     favorite = cat.get("favorite") if cat.get("favorite") != None else existing_cat.favorite
     breed_id = cat.get("breed_id") if cat.get("breed_id") != None and len(cat.get("breed_id"))>0 else existing_cat.breed_id
