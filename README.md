@@ -41,6 +41,8 @@ Please follow the next steps in order.
   (catapi) $ python3 -m app.database.populate
 ```
 
+If it fails the first time, try again.
+
 
 ## Start the server
 

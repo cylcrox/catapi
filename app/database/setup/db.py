@@ -7,19 +7,20 @@ from sqlalchemy.orm import sessionmaker
 
 class DBSetup:
   def initialize(self):
-    # TODO: FIX READING DB VARS
-    # database = os.getenv('POSTGRES_DB')
-    # username = os.getenv('POSTGRES_USER')
-    # password = os.getenv('POSTGRES_PASSWORD')
-    # host = os.getenv('POSTGRES_HOST')
+    load_dotenv()
+    
+    database = os.getenv('POSTGRES_DB')
+    username = os.getenv('POSTGRES_USER')
+    password = os.getenv('POSTGRES_PASSWORD')
+    host = os.getenv('POSTGRES_HOST')
 
     engine = create_engine(
       URL.create(
         "postgresql+psycopg2",
-        username="sample",
-        password="sample",
-        host="localhost",
-        database="cats",
+        database=database,
+        username=username,
+        password=password,
+        host=host,
       )
     )
 

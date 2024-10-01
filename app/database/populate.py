@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from setup.db import DBSetup
 from schema.cats import Cats as CatsSchema
 from schema.breeds import Breeds as BreedsSchema
@@ -7,18 +9,18 @@ from repositories.cats import Cats as CatsRepo
 import json 
 import requests
 
-cats_api_url = "https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=100"
-THE_CATS_API_API_KEY = "live_TYBossv3crQ7lngHP4ONVUFUCAN2JlCkuigQ7Vqx8oiBUQ3zK95ym5ynEf3I8m07"
-
 class Populate:
   def __init__(self):  
+    load_dotenv()
     db_session = DBSetup().initialize()
     self.db_session = db_session
     self.breeds_repo = BreedsRepo(db_session)
     self.cats_repo = CatsRepo(db_session)
   
   def populate(self):
-    response = requests.get(cats_api_url, headers= { "x-api-key": THE_CATS_API_API_KEY })
+    cats_api_url = os.getenv("CATS_API_URL")
+    cats_api_key = os.getenv("THE_CATS_API_KEY")
+    response = requests.get(cats_api_url, headers= { "x-api-key": cats_api_key })
     for cat in json.loads(response.text):
       with self.db_session.begin():
         breed = cat.get("breeds")[0]
@@ -27,6 +29,7 @@ class Populate:
       with self.db_session.begin():
         self.cats_repo.create_if_not_exists(cat)
       self.db_session.commit()
+      print("Database has been populated!")
       
 def start():
   Populate().populate()

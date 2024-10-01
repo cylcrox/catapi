@@ -88,7 +88,7 @@ export function CatsPage() {
       <AppBar position="static" sx={{ backgroundColor: "#8a8463" }}>
         <Toolbar sx={{ p: 1 }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Cats API
+            Catz API 😜
           </Typography>
           <Box sx={{ width: "200px" }}>
             <BreedsSelect
