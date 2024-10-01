@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { listBreeds } from "../api/breeds";
 import { addFavorite, listCats, removeFavorite } from "../api/cats";
@@ -81,21 +81,22 @@ export function CatsPage() {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
-        backgroundColor: "blue",
       }}
     >
-      <Box id="cats-container">
-        {catsData?.map((cat) => (
-          <CatCard
-            id={cat.id}
-            breed={breeds?.get(cat.breed_id) ?? cat.breed_id}
-            altText={cat.id}
-            favorite={cat.favorite}
-            imageUrl={cat.url}
-            toggleFavorite={toggleFavoriteRequest}
-          />
-        ))}
-      </Box>
+      <Paper sx={{ width: "100%", backgroundColor: "#e9e5cd" }}>
+        <Box id="cats-container" sx={{ display: "ruby" }}>
+          {catsData?.map((cat) => (
+            <CatCard
+              id={cat.id}
+              breed={breeds?.get(cat.breed_id) ?? cat.breed_id}
+              altText={cat.id}
+              favorite={cat.favorite}
+              imageUrl={cat.url}
+              toggleFavorite={toggleFavoriteRequest}
+            />
+          ))}
+        </Box>
+      </Paper>
     </Box>
   );
 }

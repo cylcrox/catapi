@@ -23,7 +23,7 @@ class Cats:
       print("-->>Existing cat: "+ existing_cat.id)
 
   def list(self, page=0, pageSize=10):
-    return self.db_session.query(CatsSchema).all()
+    return self.db_session.query(CatsSchema).order_by(CatsSchema.id.desc()).all()
 
   def get_by_id(self, id):
     return self.db_session.query(CatsSchema).get(id)

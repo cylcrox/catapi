@@ -1,12 +1,13 @@
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
+  Box,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   IconButton,
-  Typography,
+  Tooltip,
+  Typography
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export interface CatsCardProps {
   id: string;
@@ -23,7 +24,24 @@ export function CatCard(props: CatsCardProps) {
   }
 
   return (
-    <Card id={props.id} sx={{ margin: "16px", height: "400px", width: "400px" }}>
+    <Card id={props.id} sx={{ margin: "16px", width: "400px", display: "flex" }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent>
+          <Typography sx={{ margin: "4px" }} variant="body2">
+            Breed: {props.breed}
+          </Typography>
+          <Tooltip title={props.favorite ? "Remove from favorites" : "Add to favorites"}>
+            <IconButton
+              sx={{ margin: "4px" }}
+              id={`toggleFavorite-${props.id}`}
+              onClick={toggleFavorite}
+              aria-label="add to favorites"
+            >
+              <FavoriteIcon color={props.favorite ? "primary" : "disabled"} />
+            </IconButton>
+          </Tooltip>
+        </CardContent>
+      </Box>
       <CardMedia
         id={`card_image_${props.id}`}
         width="400px"
@@ -32,16 +50,6 @@ export function CatCard(props: CatsCardProps) {
         image={props.imageUrl}
         alt={props.altText}
       />
-      <CardContent sx={{ display: "flex", alignItems: "center" }}>
-        <IconButton
-          id={`toggleFavorite-${props.id}`}
-          onClick={toggleFavorite}
-          aria-label="add to favorites"
-        >
-          <FavoriteIcon color={props.favorite ? "primary" : "disabled"} />
-        </IconButton>
-        <Typography variant="body2">Breed: {props.breed}</Typography>
-      </CardContent>
     </Card>
   );
 }

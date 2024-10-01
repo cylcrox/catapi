@@ -6,7 +6,7 @@ Prior to the setup, make sure you have the following installed:
 - Docker, [download link](https://docs.docker.com/desktop/install/mac-install/).
 - Node 22: `brew install node@22`
 
-## Setup
+## Backend Setup
 
 Please follow the next steps in order.
 
@@ -48,3 +48,15 @@ You can start the server by running:
 ```
   (catapi) $ python3 app/server.py
 ```
+
+## Frontend Setup
+
+Go to `webapp/` and start the web server by running the following:
+
+```
+  $ npm i
+  $ npm start
+```
+
+
+### Enjoy playing around!
