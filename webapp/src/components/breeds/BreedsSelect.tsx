@@ -11,17 +11,19 @@ export interface BreedsSelectProps {
 export function BreedsSelect(props: BreedsSelectProps) {
   return (
     <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Filter cats by breed</InputLabel>
+      <InputLabel id="breeds-select-label">Filter cats by breed</InputLabel>
       <Select
+        id="breeds-select"
         sx={{ backgroundColor: "white" }}
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+        labelId="breeds-select-label"
         value={props.selectedBreed}
         label="Filter cats by breed"
         onChange={({ target }) => props.setSelectedBreed?.(target.value)}
       >
         {props.breeds?.map((breed) => (
-          <MenuItem value={breed.id}>{breed.name}</MenuItem>
+          <MenuItem key={breed.id} id={`breeds-select-item-${breed.id}`} value={breed.id}>
+            {breed.name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

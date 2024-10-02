@@ -104,6 +104,7 @@ export function CatsPage() {
           {cats?.map((cat) => (
             <CatCard
               id={cat.id}
+              key={cat.id}
               breed={breedsMap?.get(cat.breed_id) ?? cat.breed_id}
               altText={cat.id}
               favorite={cat.favorite}

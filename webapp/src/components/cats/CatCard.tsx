@@ -6,7 +6,7 @@ import {
   CardMedia,
   IconButton,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 
 export interface CatsCardProps {
@@ -24,7 +24,10 @@ export function CatCard(props: CatsCardProps) {
   }
 
   return (
-    <Card id={props.id} sx={{ margin: "16px", width: "400px", display: "flex" }}>
+    <Card
+      id={`cat-card-${props.id}`}
+      sx={{ margin: "16px", width: "400px", display: "flex" }}
+    >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent>
           <Typography sx={{ margin: "4px" }} variant="body2">

@@ -1,7 +1,7 @@
 import { configure, fireEvent, render, screen } from "@testing-library/react";
 import { CatCard, CatsCardProps } from "./CatCard";
 
-configure({ testIdAttribute: "id" })
+configure({ testIdAttribute: "id" });
 
 const defaultProps: CatsCardProps = {
   id: "xnzzM6MBI",
@@ -9,7 +9,7 @@ const defaultProps: CatsCardProps = {
   breed: "Cat Breed",
   favorite: false,
   imageUrl: "https://fake_image_url.jpg",
-  toggleFavorite: jest.fn()
+  toggleFavorite: jest.fn(),
 };
 
 const buildTest = (props: CatsCardProps = defaultProps) => {
@@ -17,8 +17,8 @@ const buildTest = (props: CatsCardProps = defaultProps) => {
 
   return {
     image: () => screen.getByTestId(`card_image_${props.id}`),
-    breed: () => screen.getByText(props.breed),
-    favoriteButton: () => screen.getByTestId(`favorite_cat_${props.id}`),
+    breed: () => screen.getByText(`Breed: ${props.breed}`),
+    favoriteButton: () => screen.getByTestId(`toggleFavorite-${props.id}`),
   };
 };
 
@@ -31,11 +31,11 @@ describe("CatsCard", () => {
     expect(favoriteButton()).toBeDefined();
   });
 
-  it("toggles favorite", ()=> {
+  it("toggles favorite", () => {
     const { favoriteButton } = buildTest();
 
-    fireEvent.click(favoriteButton())
-    
+    fireEvent.click(favoriteButton());
+
     expect(defaultProps.toggleFavorite).toHaveBeenCalledTimes(1);
-  })
+  });
 });
