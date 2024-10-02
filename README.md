@@ -65,14 +65,14 @@ Go to `webapp/` and start the web server by running the following:
   $ npm start
 ```
 
-### Running frontend tests
-Go to `webapp/`, then just run:
-```
-  npm run test
-```
-
 After running the previous command, you'll be taken to the browser and you should see something like this:
 
 https://github.com/user-attachments/assets/f4f16dcd-4064-4e36-974b-1eb06a969a11
+
+### Running frontend tests
+Go to `webapp/`, then just run:
+```
+  $ npm run test
+```
 
 ### Enjoy playing around!
